@@ -1,34 +1,34 @@
-# CommonProblemResolver (CPR)
+# AllgemeinerProblemLoeser (APL)
 
-Rescue your switch without a pc!
+Rette deine Switch ohne einen PC!
 
-## Usage
-1. Get your favorite payload injector
-2. Inject CPR as a payload
+## Benutzung
+1. Benutze deinen bevorzugten Payload-Starter
+2. Starte die APL payload
 
-Navigate around the menus using the joycons.
-- A: Select
-- B: Back
-- Left Joystick up/down (Dpad or joystick): navigate menus up/down
-- Right Joystick up/down: fast menu navigation up/down
-- Capture (Minerva only): Take a screenshot
-- L3/R3 (Press joysticks in): Recalibrate centerpoint
+Navigiere durch die Menüs mit Hilfe deiner JoyCons.
+- A: Auswählen
+- B: Zurück
+- Linker Joystick Hoch/Runter (Dpad oder joystick): Durch Menüs Hoch/Runter navigieren
+- Rechter Joystick Hoch/Runter: schnelle Menü Navigation Hoch/Runter
+- Aufnahme (NUR mit Minerva): Erstelle einen Screenshot
+- L3/R3 (Die Joysticks drücken): Mittelpunkt neu kalibrieren
 
-If you do not have your joycons connected:
+Sind die JoyCons nicht angeschlossen:
 - Power -> A
-- Vol+ -> Left Joystick up
-- Vol- -> Left Joystick down
+- Vol+ -> Hoch
+- Vol- -> Runter
 
-## Functions
-- Disables all sysmodules on your switch (might fix booting issues after update)
-- Delete installed themes (will fix booting issues after update)
-- Reverts changes made by clingwrap
+## Funktionen
+- Deaktiviert alle sys-module auf der switch (Behebt die meisten Startprobleme (besonders nach Update))
+- Löschen des installierten Themes (Behebt Startproblem nach einem Update)
+- Änderungen von ClingWrap(SP) Rückgängig machen
 
 ## Support
 
-Join [our discord](https://discord.gg/VkaRjYN) for help.
+Tritt unserem [Switchbros Discord](https://discord.gg/switchbros) Server bei, um Hilfe zu bekommen.
 
 ## Credits
 
-This is heavily based on [TegraExplorer](https://github.com/suchmememanyskill/TegraExplorer) by suchmememanyskill,
-which itself is based on [Lockpick_RCM](https://github.com/shchmue/Lockpick_RCM), and thus also based on [Hekate](https://github.com/CTCaer/hekate)
+APL basiert stark auf [TegraExplorer](https://github.com/suchmememanyskill/TegraExplorer) von suchmememanyskill,
+welches selbst auf [Lockpick_RCM](https://github.com/shchmue/Lockpick_RCM) basiert, und somit auch auf [Hekate](https://github.com/CTCaer/hekate)

@@ -119,12 +119,12 @@ void printError(scriptResult_t res) {
 		if (res.resCode == ERRESCSCRIPT)
 			return;
 
-		gfx_printf("Error found! %s\nNear: ", ErrorText[res.resCode - 1]);
+		gfx_printf("Fehler gefunden! %s\nNahe: ", ErrorText[res.resCode - 1]);
 		for (int i = 0; i < res.len; i++) {
 			printToken(&res.nearToken[i]);
 		}
 
-		gfx_printf("\nPress any key to exit");
+		gfx_printf("\nDruecke beliebige Taste zum Beenden");
 		hidWait();
 	}
 }

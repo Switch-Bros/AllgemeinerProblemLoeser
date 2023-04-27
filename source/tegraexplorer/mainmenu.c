@@ -52,28 +52,28 @@ enum {
 };
 
 MenuEntry_t mainMenuEntries[] = {
-    [MainExplore] = {.optionUnion = COLORTORGB(COLOR_WHITE) | SKIPBIT, .name = "-- Bootfixes --"},
-    [DeleteBootFlags] = {.optionUnion = COLORTORGB(COLOR_GREEN), .name = "Disable automatic sysmodule startup"},
-    [DeleteThemes] = {.optionUnion = COLORTORGB(COLOR_GREEN), .name = "Delete installed themes"},
-    [FixClingWrap] = {.optionUnion = COLORTORGB(COLOR_GREEN), .name = "Fix ClingWrap"},
-    [FixAIOUpdaterBoot] = {.optionUnion = COLORTORGB(COLOR_GREEN), .name = "Fix Switch-AiO-Updater update"},
-    [FixArchiveBitA] = {.optionUnion = COLORTORGB(COLOR_GREEN), .name = "Fix archive bit (all folders except nintendo)"},
-    [FixArchiveBitN] = {.optionUnion = COLORTORGB(COLOR_GREEN), .name = "Fix archive bit (nintendo folder)"},
+    [MainExplore] = {.optionUnion = COLORTORGB(COLOR_WHITE) | SKIPBIT, .name = "-- Behebe Start Probleme --"},
+    [DeleteBootFlags] = {.optionUnion = COLORTORGB(COLOR_GREEN), .name = "Automatisches starten der sysmodule deaktivieren"},
+    [DeleteThemes] = {.optionUnion = COLORTORGB(COLOR_GREEN), .name = "Loesche installierte Themes"},
+    [FixClingWrap] = {.optionUnion = COLORTORGB(COLOR_GREEN), .name = "Repariere SigPatches"},
+    [FixAIOUpdaterBoot] = {.optionUnion = COLORTORGB(COLOR_GREEN), .name = "Behebe fehlerhaftes AIO-switch-updater Update"},
+    [FixArchiveBitA] = {.optionUnion = COLORTORGB(COLOR_GREEN), .name = "Behebe Archive Bit (alle Ordner ausser Nintendo)"},
+    [FixArchiveBitN] = {.optionUnion = COLORTORGB(COLOR_GREEN), .name = "Behebe Archive Bit (Nintendo Ordner)"},
     // [FixAll] = {.optionUnion = COLORTORGB(COLOR_GREEN), .name = "Try everything"},
 
-    [MainConvenience] = {.optionUnion = COLORTORGB(COLOR_WHITE) | SKIPBIT, .name = "\n-- Convenience --"},
-    [FixMacSpecialFolders] = {.optionUnion = COLORTORGB(COLOR_ORANGE), .name = "Remove special folders created by Mac"},
+    [MainConvenience] = {.optionUnion = COLORTORGB(COLOR_WHITE) | SKIPBIT, .name = "\n-- Bequemlichkeit --"},
+    [FixMacSpecialFolders] = {.optionUnion = COLORTORGB(COLOR_ORANGE), .name = "Entferne spezielle MacOS Dateien"},
 
-    [MainOther] = {.optionUnion = COLORTORGB(COLOR_WHITE) | SKIPBIT, .name = "\n-- Other --"},
-    [MainViewStillNoBootInfo] = {.optionUnion = COLORTORGB(COLOR_YELLOW), .name = "My switch still does not boot"},
-    [MainViewCredits] = {.optionUnion = COLORTORGB(COLOR_YELLOW), .name = "Credits"},
+    [MainOther] = {.optionUnion = COLORTORGB(COLOR_WHITE) | SKIPBIT, .name = "\n-- Sonstiges --"},
+    [MainViewStillNoBootInfo] = {.optionUnion = COLORTORGB(COLOR_YELLOW), .name = "Meine Switch startet nicht mehr"},
+    [MainViewCredits] = {.optionUnion = COLORTORGB(COLOR_YELLOW), .name = "Ueber"},
 
-    [MainExit] = {.optionUnion = COLORTORGB(COLOR_WHITE) | SKIPBIT, .name = "\n-- Exit --"},
-    [MainPowerOff] = {.optionUnion = COLORTORGB(COLOR_VIOLET), .name = "Power off"},
-    [MainRebootRCM] = {.optionUnion = COLORTORGB(COLOR_VIOLET), .name = "Reboot to RCM"},
-    // [MainRebootNormal] = {.optionUnion = COLORTORGB(COLOR_VIOLET), .name = "Reboot normally"},
-    [MainRebootHekate] = {.optionUnion = COLORTORGB(COLOR_VIOLET), .name = "Reboot to bootloader/update.bin"},
-    [MainRebootAMS] = {.optionUnion = COLORTORGB(COLOR_VIOLET), .name = "Reboot to atmosphere/reboot_payload.bin"}
+    [MainExit] = {.optionUnion = COLORTORGB(COLOR_WHITE) | SKIPBIT, .name = "\n-- Beenden --"},
+    [MainPowerOff] = {.optionUnion = COLORTORGB(COLOR_VIOLET), .name = "Ausschalten"},
+    [MainRebootRCM] = {.optionUnion = COLORTORGB(COLOR_VIOLET), .name = "Neustart in RCM-Modus"},
+    // [MainRebootNormal] = {.optionUnion = COLORTORGB(COLOR_VIOLET), .name = "Normaler Neustart"},
+    [MainRebootHekate] = {.optionUnion = COLORTORGB(COLOR_VIOLET), .name = "Neustart in hekate"},
+    [MainRebootAMS] = {.optionUnion = COLORTORGB(COLOR_VIOLET), .name = "Neustart in Atmosphere"}
     
     
     // [MainBrowseSd] = {.optionUnion = COLORTORGB(COLOR_GREEN), .name = "Browse SD"},
@@ -91,7 +91,7 @@ void HandleSD(){
     gfx_clearscreen();
     TConf.curExplorerLoc = LOC_SD;
     if (!sd_mount() || sd_get_card_removed()){
-        gfx_printf("Sd is not mounted!");
+        gfx_printf("SD-Karte ist nicht gemounted!");
         hidWait();
     }
     else

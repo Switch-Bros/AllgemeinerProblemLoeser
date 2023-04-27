@@ -201,13 +201,13 @@ typedef struct {
 } ColorCombo_t;
 
 ColorCombo_t combos[] = {
-	{"RED", COLOR_RED},
+	{"ROT", COLOR_RED},
 	{"ORANGE", COLOR_ORANGE},
-	{"YELLOW", COLOR_YELLOW},
-	{"GREEN", COLOR_GREEN},
-	{"BLUE", COLOR_BLUE},
-	{"VIOLET", COLOR_VIOLET},
-	{"GREY", COLOR_GREY},
+	{"GELB", COLOR_YELLOW},
+	{"GRUEN", COLOR_GREEN},
+	{"BLAU", COLOR_BLUE},
+	{"LILA", COLOR_VIOLET},
+	{"GRAU", COLOR_GREY},
 };
 
 u32 GetColor(char *color){
@@ -234,7 +234,7 @@ scriptFunction(funcPause){
 scriptFunction(funcWait){
 	u32 timer = get_tmr_ms();
 	while (timer + vars[0].integerType > get_tmr_ms()){
-		gfx_printf("<Wait %d seconds> \r", (vars[0].integerType - (get_tmr_ms() - timer)) / 1000);
+		gfx_printf("<Warte %d Sekunden> \r", (vars[0].integerType - (get_tmr_ms() - timer)) / 1000);
 		hidRead();
 	}
 	return NullVar;
@@ -321,9 +321,9 @@ scriptFunction(funcFileCopy){
 // Args: Str
 scriptFunction(funcMmcConnect){
 	int res = 0;
-	if (!strcmp(vars[0].stringType, "SYSMMC"))
+	if (!strcmp(vars[0].stringType, "sysMMC"))
 		res = connectMMC(MMC_CONN_EMMC);
-	else if (!strcmp(vars[0].stringType, "EMUMMC") && emu_cfg.enabled)
+	else if (!strcmp(vars[0].stringType, "emuMMC") && emu_cfg.enabled)
 		res = connectMMC(MMC_CONN_EMUMMC);
 	else
 		return ErrVar(ERRFATALFUNCFAIL);

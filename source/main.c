@@ -32,7 +32,7 @@
 #include <soc/bpmp.h>
 #include <soc/hw_init.h>
 #include "storage/emummc.h"
-#include <storage/emmc.h>
+#include "storage/emmc.h"
 #include <storage/sd.h>
 #include <storage/sdmmc.h>
 #include <utils/btn.h>
@@ -105,7 +105,7 @@ int launch_payload(char *path)
 		FIL fp;
 		if (f_open(&fp, path, FA_READ))
 		{
-			EPRINTFARGS("Payload file is missing!\n(%s)", path);
+			EPRINTFARGS("Payload fehlt!\n(%s)", path);
 			sd_unmount();
 
 			return 1;
@@ -237,7 +237,7 @@ void ipl_main()
 	heap_init(IPL_HEAP_START);
 
 #ifdef DEBUG_UART_PORT
-	uart_send(DEBUG_UART_PORT, (u8 *)"hekate: Hello!\r\n", 16);
+	uart_send(DEBUG_UART_PORT, (u8 *)"hekate: Hallo!\r\n", 16);
 	uart_wait_idle(DEBUG_UART_PORT, UART_TX_IDLE);
 #endif
 

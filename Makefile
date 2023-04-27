@@ -10,12 +10,12 @@ include $(DEVKITARM)/base_rules
 
 IPL_LOAD_ADDR := 0x40008000
 LPVERSION_MAJOR := 0
-LPVERSION_MINOR := 3
-LPVERSION_BUGFX := 4
+LPVERSION_MINOR := 4
+LPVERSION_BUGFX := 0
 
 ################################################################################
 
-TARGET := CommonProblemResolver
+TARGET := AllgemeinerProblemLoeser
 BUILDDIR := build
 OUTPUTDIR := output
 SOURCEDIR = source

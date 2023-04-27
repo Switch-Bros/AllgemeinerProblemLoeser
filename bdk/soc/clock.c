@@ -976,4 +976,3 @@ u32 clock_get_dev_freq(clock_pto_id_t id)
 
 	return freq_khz;
 }
-

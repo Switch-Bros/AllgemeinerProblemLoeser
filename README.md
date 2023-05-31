@@ -1,5 +1,5 @@
 # AllgemeinerProblemLoeser (APL)
-# ORIGINAL ist [CommonProblemResolver](https://github.com/Team-Neptune/CommonProblemResolver) von Team-Neptune hier!
+# ORIGINAL ist [CommonProblemResolver](https://github.com/Team-Neptune/CommonProblemResolver) von [Team-Neptune](https://github.com/Team-Neptune)!
  Wir haben es lediglich ins Deutsche übersetzt!
  Wenn englisch kein Problem darstellt dann nutzt BITTE das ORIGINAL von Team-Neptune!
 

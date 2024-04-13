@@ -85,7 +85,7 @@ static void _config_oscillators()
 	CLOCK(CLK_RST_CONTROLLER_CLK_SYSTEM_RATE) = 0x10;       // Set HCLK div to 2 and PCLK div to 1.
 	CLOCK(CLK_RST_CONTROLLER_PLLMB_BASE)     &= 0xBFFFFFFF; // PLLMB disable.
 
-	PMC(APBDEV_PMC_TSC_MULT) = (PMC(APBDEV_PMC_TSC_MULT) & 0xFFFF0000) | 0x249F; //0x249F = 19200000 * (16 / 32.768 kHz)
+	PMC(APBDEV_PMC_TSC_MULT) = (PMC(APBDEV_PMC_TSC_MULT) & 0xFFFF0000) | 0x249F; // 0x249F = 19200000 * (16 / 32.768 kHz).
 
 	CLOCK(CLK_RST_CONTROLLER_CLK_SOURCE_SYS)     = 0;          // Set BPMP/SCLK div to 1.
 	CLOCK(CLK_RST_CONTROLLER_SCLK_BURST_POLICY)  = 0x20004444; // Set BPMP/SCLK source to Run and PLLP_OUT2 (204MHz).
@@ -277,12 +277,12 @@ static void _config_regulators(bool tegra_t210)
 	// Disable low battery shutdown monitor.
 	max77620_low_battery_monitor_config(false);
 
-	// Disable SDMMC1 IO power.
-	gpio_write(GPIO_PORT_E, GPIO_PIN_4, GPIO_LOW);
+	// Disable SDMMC1 IO/Core power.
 	max7762x_regulator_enable(REGULATOR_LDO2, false);
+	gpio_write(GPIO_PORT_E, GPIO_PIN_4, GPIO_LOW);
 	sd_power_cycle_time_start = get_tmr_ms();
 
-	// Disable LCD DVDD.
+	// Disable LCD DVDD to make sure it's in a reset state.
 	max7762x_regulator_enable(REGULATOR_LDO0, false);
 
 	i2c_send_byte(I2C_5, MAX77620_I2C_ADDR, MAX77620_REG_CNFGBBC, MAX77620_CNFGBBC_RESISTOR_1K);
@@ -328,8 +328,10 @@ void hw_init()
 	// Bootrom stuff we skipped by going through rcm.
 	_config_se_brom();
 	//FUSE(FUSE_PRIVATEKEYDISABLE) = 0x11;
-	SYSREG(AHB_AHB_SPARE_REG) &= 0xFFFFFF9F; // Unset APB2JTAG_OVERRIDE_EN and OBS_OVERRIDE_EN.
-	PMC(APBDEV_PMC_SCRATCH49) = PMC(APBDEV_PMC_SCRATCH49) & 0xFFFFFFFC;
+
+	// Unset APB2JTAG_OVERRIDE_EN and OBS_OVERRIDE_EN.
+	SYSREG(AHB_AHB_SPARE_REG) &= 0xFFFFFF9F;
+	PMC(APBDEV_PMC_SCRATCH49) &= 0xFFFFFFFC;
 
 	// Perform Memory Built-In Self Test WAR if T210.
 	if (tegra_t210)
@@ -365,7 +367,7 @@ void hw_init()
 	uart_invert(DEBUG_UART_PORT, DEBUG_UART_INVERT, UART_INVERT_TXD);
 #endif
 
-	// Enable Dynamic Voltage and Frequency Scaling device clock.
+	// Enable CL-DVFS clock unconditionally to avoid issues with I2C5 sharing.
 	clock_enable_cl_dvfs();
 
 	// Enable clocks to I2C1 and I2CPWR.

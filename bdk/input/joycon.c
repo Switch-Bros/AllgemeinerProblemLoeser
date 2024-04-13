@@ -43,7 +43,9 @@
 #define JC_HORI_INPUT_RPT        0x00
 
 #define JC_WIRED_CMD_GET_INFO    0x01
-#define JC_WIRED_CMD_CHRG_CFG    0x02
+#define JC_WIRED_CMD_SET_CHARGER 0x02
+#define JC_WIRED_CMD_GET_CHARGER 0x03
+#define JC_WIRED_CMD_BATT_VOLT   0x06
 #define JC_WIRED_CMD_WAKE_REASON 0x07
 #define JC_WIRED_CMD_HID_CONN    0x10
 #define JC_WIRED_CMD_HID_DISC    0x11
@@ -304,7 +306,7 @@ typedef struct _jc_sio_hid_in_rpt_t
 	u8 stick_h_right;
 	u8 stick_m_right;
 	u8 stick_v_right;
-	u8 siaxis_rpt_num; // Max 15.
+	u8 siaxis_rpt; // bit0-3: report num. bit4-7: imu type.
 	// Each report is 800 us?
 	jc_hid_in_sixaxis_rpt_t sixaxis[15];
 } jc_sio_hid_in_rpt_t;

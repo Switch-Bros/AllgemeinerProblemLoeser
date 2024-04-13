@@ -6333,6 +6333,8 @@ FRESULT f_mkfs (
 	LEAVE_MKFS(FR_OK);
 }
 
+
+
 #if FF_MULTI_PARTITION
 /*-----------------------------------------------------------------------*/
 /* Create Partition Table on the Physical Drive                          */
@@ -6444,16 +6446,16 @@ FRESULT f_fdisk_mod (
 	for (i = 0; i < 4; i++, p += SZ_PTE) {
 		p_sect = szt[i]; /* Number of sectors */
 
-		if (p_sect == 0) 
+		if (p_sect == 0)
 			continue;
-		
+
 		if (i == 0) {	/* Exclude first 16MiB of sd */
 			s_hd = 1;
 			b_sect += 32768; p_sect -= 32768;
-		} 
+		}
 		else
 			s_hd = 0;
-		
+
 		b_cyl = b_sect / sz_cyl;
 		e_cyl = ((b_sect + p_sect) / sz_cyl) - 1;	/* End cylinder */
 

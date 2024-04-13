@@ -33,6 +33,7 @@
 #include <utils/btn.h>
 #include <utils/list.h>
 #include <utils/types.h>
+#include "../gfx/gfxutils.h"
 
 #include <gfx_utils.h>
 
@@ -40,6 +41,8 @@
 
 #define WB_RST_ADDR 0x40010ED0
 #define WB_RST_SIZE 0x30
+
+const u32 colors[6] = {COLOR_RED, COLOR_ORANGE, COLOR_YELLOW, COLOR_GREEN, COLOR_BLUE, COLOR_VIOLET};
 
 u8 warmboot_reboot[] = {
 	0x14, 0x00, 0x9F, 0xE5, // LDR R0, =0x7000E450

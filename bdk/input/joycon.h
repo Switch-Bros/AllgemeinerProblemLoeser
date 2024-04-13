@@ -90,6 +90,16 @@ typedef struct _jc_gamepad_rpt_t
 	jc_bt_conn_t bt_conn_r;
 } jc_gamepad_rpt_t;
 
+typedef struct _jc_calib_t
+{
+	u16 x_max:12;
+	u16 y_max:12;
+	u16 x_center:12;
+	u16 y_center:12;
+	u16 x_min:12;
+	u16 y_min:12;
+} __attribute__((packed)) jc_calib_t;
+
 void jc_init_hw();
 void jc_deinit();
 jc_gamepad_rpt_t *joycon_poll();

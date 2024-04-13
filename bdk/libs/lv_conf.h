@@ -17,7 +17,7 @@
 #ifndef LV_CONF_H
 #define LV_CONF_H
 
-#include <utils/types.h>
+#include <soc/timer.h>
 #include <memory_map.h>
 /*===================
    Dynamic memory
@@ -126,7 +126,7 @@
 #define LV_COLOR_TRANSP        LV_COLOR_LIME     /*Images pixels with this color will not be drawn (with chroma keying)*/
 
 /*Text settings*/
-#define LV_TXT_UTF8             0                /*Enable UTF-8 coded Unicode character usage */
+#define LV_TXT_UTF8             1                /*Enable UTF-8 coded Unicode character usage */
 #define LV_TXT_BREAK_CHARS     " ,.;:-_"         /*Can break texts on these chars*/
 #define LV_TXT_LINE_BREAK_LONG_LEN 12            /* If a character is at least this long, will break wherever "prettiest" */
 #define LV_TXT_LINE_BREAK_LONG_PRE_MIN_LEN 3     /* Minimum number of characters of a word to put on a line before a break */
@@ -147,10 +147,10 @@
 #define LV_COMPILER_VLA_SUPPORTED            1  /* 1: Variable length array is supported*/
 
 /*HAL settings*/
-#define LV_TICK_CUSTOM               1                       /*1: use a custom tick source (removing the need to manually update the tick with `lv_tick_inc`) */
+#define LV_TICK_CUSTOM               1                      /*1: use a custom tick source (removing the need to manually update the tick with `lv_tick_inc`) */
 #if LV_TICK_CUSTOM == 1
 #define LV_TICK_CUSTOM_INCLUDE       <soc/timer.h>          /*Header for the sys time function*/
-#define LV_TICK_CUSTOM_SYS_TIME_EXPR (get_tmr_ms())          /*Expression evaluating to current systime in ms*/
+#define LV_TICK_CUSTOM_SYS_TIME_EXPR ((u32)get_tmr_ms())         /*Expression evaluating to current systime in ms*/
 #endif     /*LV_TICK_CUSTOM*/
 
 
@@ -296,6 +296,9 @@
 
 /*Message box (dependencies: lv_rect, lv_btnm, lv_label)*/
 #define USE_LV_MBOX     1
+#if USE_LV_MBOX != 0
+#  define LV_MBOX_CLOSE_ANIM_TIME 200     /*ms*/
+#endif
 
 /*Text area (dependencies: lv_label, lv_page)*/
 #define USE_LV_TA       1

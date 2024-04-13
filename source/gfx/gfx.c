@@ -581,7 +581,7 @@ void gfx_hexdiff(u32 base, const u8 *buf1, const u8 *buf2, u32 len)
 		for (u32 j = 0; j < bytes_left; j++)
 		{
 			if (buf1[i+j] != buf2[i+j])
-				gfx_con.fgcol = COLOR_ORANGE;
+				gfx_con.fgcol = 0xFFFFA500;
 			gfx_printf("%02x ", buf1[i+j]);
 			gfx_con.fgcol = 0xFFCCCCCC;
 		}
@@ -591,7 +591,7 @@ void gfx_hexdiff(u32 base, const u8 *buf1, const u8 *buf2, u32 len)
 		for (u32 j = 0; j < bytes_left; j++)
 		{
 			if (buf1[i+j] != buf2[i+j])
-				gfx_con.fgcol = COLOR_ORANGE;
+				gfx_con.fgcol = 0xFFFFA500;
 			gfx_printf("%02x ", buf2[i+j]);
 			gfx_con.fgcol = 0xFFCCCCCC;
 		}

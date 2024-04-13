@@ -89,11 +89,11 @@ typedef struct {
     substorage base_storage;
 } remap_storage_ctx_t;
 
-static ALWAYS_INLINE uint32_t save_remap_get_segment_from_virtual_offset(remap_header_t *header, uint64_t offset) {
+static inline __attribute__((always_inline)) uint32_t save_remap_get_segment_from_virtual_offset(remap_header_t *header, uint64_t offset) {
     return (uint32_t)(offset >> (64 - header->segment_bits));
 }
 
-static ALWAYS_INLINE uint64_t save_remap_get_virtual_offset(remap_header_t *header, uint64_t segment) {
+static inline __attribute__((always_inline)) uint64_t save_remap_get_virtual_offset(remap_header_t *header, uint64_t segment) {
     return segment << (64 - header->segment_bits);
 }
 

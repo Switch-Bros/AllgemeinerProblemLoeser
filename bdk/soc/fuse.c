@@ -2,7 +2,7 @@
  * Copyright (c) 2018 naehrwert
  * Copyright (c) 2018 shuffle2
  * Copyright (c) 2018 balika011
- * Copyright (c) 2019-2022 CTCaer
+ * Copyright (c) 2019-2023 CTCaer
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms and conditions of the GNU General Public License,
@@ -102,7 +102,7 @@ u32 fuse_read_dramid(bool raw_id)
 
 	if (tegra_t210)
 	{
-		if (dramid > 6)
+		if (dramid > 7)
 			dramid = 0;
 	}
 	else
@@ -167,11 +167,8 @@ int fuse_set_sbk()
 
 void fuse_wait_idle()
 {
-	u32 ctrl;
-	do
-	{
-		ctrl = FUSE(FUSE_CTRL);
-	} while (((ctrl >> 16) & 0x1f) != 4);
+	while (((FUSE(FUSE_CTRL) >> 16) & 0x1F) != FUSE_STATUS_IDLE)
+		;
 }
 
 u32 fuse_read(u32 addr)
@@ -186,7 +183,7 @@ u32 fuse_read(u32 addr)
 void fuse_read_array(u32 *words)
 {
 	u32 array_size = (hw_get_chip_id() == GP_HIDREV_MAJOR_T210B01) ?
-					 FUSE_ARRAY_WORDS_NUM_T210B01 : FUSE_ARRAY_WORDS_NUM;
+					 FUSE_ARRAY_WORDS_NUM_B01 : FUSE_ARRAY_WORDS_NUM;
 
 	for (u32 i = 0; i < array_size; i++)
 		words[i] = fuse_read(i);
@@ -325,9 +322,9 @@ int fuse_read_ipatch(void (*ipatch)(u32 offset, u32 value))
 			// Parse extra T210B01 fuses when the difference is reached.
 			if (hw_get_chip_id() == GP_HIDREV_MAJOR_T210B01 &&
 				word_addr == ((FUSE_ARRAY_WORDS_NUM - 1) -
-							  (FUSE_ARRAY_WORDS_NUM_T210B01 - FUSE_ARRAY_WORDS_NUM) / sizeof(u32)))
+							  (FUSE_ARRAY_WORDS_NUM_B01 - FUSE_ARRAY_WORDS_NUM) / sizeof(u32)))
 			{
-				word_addr = FUSE_ARRAY_WORDS_NUM_T210B01 - 1;
+				word_addr = FUSE_ARRAY_WORDS_NUM_B01 - 1;
 			}
 		}
 
@@ -395,9 +392,9 @@ int fuse_read_evp_thunk(u32 *iram_evp_thunks, u32 *iram_evp_thunks_len)
 			// Parse extra T210B01 fuses when the difference is reached.
 			if (hw_get_chip_id() == GP_HIDREV_MAJOR_T210B01 &&
 				word_addr == ((FUSE_ARRAY_WORDS_NUM - 1) -
-							  (FUSE_ARRAY_WORDS_NUM_T210B01 - FUSE_ARRAY_WORDS_NUM) / sizeof(u32)))
+							  (FUSE_ARRAY_WORDS_NUM_B01 - FUSE_ARRAY_WORDS_NUM) / sizeof(u32)))
 			{
-				word_addr = FUSE_ARRAY_WORDS_NUM_T210B01 - 1;
+				word_addr = FUSE_ARRAY_WORDS_NUM_B01 - 1;
 			}
 		}
 

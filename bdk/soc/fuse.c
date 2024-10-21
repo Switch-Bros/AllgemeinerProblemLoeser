@@ -86,6 +86,15 @@ u32 fuse_read_odm_keygen_rev()
 	return 0;
 }
 
+u32 fuse_read_bootrom_rev()
+{
+	u32 rev = FUSE(FUSE_SOC_SPEEDO_1_CALIB);
+	if (hw_get_chip_id() == GP_HIDREV_MAJOR_T210)
+		return rev;
+	else
+		return rev | (1 << 12);
+}
+
 u32 fuse_read_dramid(bool raw_id)
 {
 	bool tegra_t210 = hw_get_chip_id() == GP_HIDREV_MAJOR_T210;
@@ -189,7 +198,7 @@ void fuse_read_array(u32 *words)
 		words[i] = fuse_read(i);
 }
 
-static u32 _parity32_even(u32 *words, u32 count)
+static u32 _parity32_even(const u32 *words, u32 count)
 {
 	u32 acc = words[0];
 	for (u32 i = 1; i < count; i++)
@@ -303,7 +312,7 @@ int fuse_read_ipatch(void (*ipatch)(u32 offset, u32 value))
 	u32 words[80];
 	u32 word_count;
 	u32 word_addr;
-	u32 word0 = 0;
+	u32 word0;
 	u32 total_read = 0;
 
 	word_count = FUSE(FUSE_FIRST_BOOTROM_PATCH_SIZE);
@@ -363,7 +372,7 @@ int fuse_read_evp_thunk(u32 *iram_evp_thunks, u32 *iram_evp_thunks_len)
 	u32 words[80];
 	u32 word_count;
 	u32 word_addr;
-	u32 word0 = 0;
+	u32 word0;
 	u32 total_read = 0;
 	int evp_thunk_written = 0;
 	void *evp_thunk_dst_addr = 0;

@@ -38,7 +38,7 @@ const char *GetErrStr(u32 err){
     if (err >= 0 && err < ARRAY_SIZE(TEErrors))
         return TEErrors[err];
 
-    return "(Unknown)";
+    return "(Unbekannt)";
 }
 
 #define lx 256

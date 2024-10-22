@@ -424,7 +424,7 @@ void m_entry_stillNoBootInfo(){
     gfx_printf("%kSteckt eine Spiel-Cardrige im Slot?\n", COLOR_WHITE);
     gfx_printf("Entferne sie und starte neu.\n\n");
 
-    gfx_printf("%kHast du vor kurzem Atmosphere/SwitchBros. aktualisiert?\n", COLOR_WHITE);
+    gfx_printf("%kHast du vor kurzem atmosphere/switchbros-O-sphere aktualisiert?\n", COLOR_WHITE);
     gfx_printf("Stecke die SD-Karte in deinen PC, loesche 'atmosphere', 'bootloader' & 'sept' Ordner, lade dein bevorzugtes CFW runter und pack die Dateien auf die SD-Karte.\nEinfacher ist es mit unserem SwitchBros. Paket!\nWir bieten dir gerne Hilfe auf unserem SwitchBros. Discord Server an. https://discord.gg/switchbros\n\n");
 
     gfx_printf("%kHast du eine neue SD-Karte gekauft?\n", COLOR_WHITE);

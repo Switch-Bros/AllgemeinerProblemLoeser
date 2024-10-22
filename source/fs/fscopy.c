@@ -177,7 +177,7 @@ ErrCode_t FolderDelete(const char *path){
                 // gfx_con_setpos(x, y); 
                 
             }
-            gfx_printf("Deleted: %s \n", temp);  
+            gfx_printf("Geloescht: %s \n", temp);  
             free(temp);
         }
     }

@@ -146,7 +146,7 @@ Vector_t runLexer(const char* in, u32 len) {
 			if (negative)
 				parse *= -1;
 
-			vecAddElement(&vec, makeLexarToken(IntLit, parse));
+			vecAddElement(&vec, makeLexarToken(IntLit, (char *)parse));
 			continue;
 		}
 		ELIFC('(') {

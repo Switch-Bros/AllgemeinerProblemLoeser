@@ -4,7 +4,7 @@
  * Copyright (c) 2003-2008 Alan Stern
  * Copyright (c) 2009 Samsung Electronics
  *                    Author: Michal Nazarewicz <m.nazarewicz@samsung.com>
- * Copyright (c) 2019-2023 CTCaer
+ * Copyright (c) 2019-2024 CTCaer
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms and conditions of the GNU General Public License,
@@ -32,6 +32,7 @@
 #include <storage/sdmmc_driver.h>
 #include <utils/btn.h>
 #include <utils/sprintf.h>
+#include <utils/util.h>
 
 #include <memory_map.h>
 
@@ -758,7 +759,7 @@ static int _scsi_inquiry(usbd_gadget_ums_t *ums, bulk_ctxt_t *bulk_ctxt)
 
 		buf += 4;
 		s_printf((char *)buf, "%04X%s",
-			ums->lun.storage->cid.serial, ums->lun.type == MMC_SD ? " SD卡 " : " eMMC ");
+			ums->lun.storage->cid.serial, ums->lun.type == MMC_SD ? " SD " : " eMMC ");
 
 		switch (ums->lun.partition)
 		{
@@ -803,15 +804,15 @@ static int _scsi_inquiry(usbd_gadget_ums_t *ums, bulk_ctxt_t *bulk_ctxt)
 			break;
 		case EMMC_GPP + 1:
 			s_printf((char *)buf, "%s%s",
-				ums->lun.type == MMC_SD ? "SD卡 " : "eMMC ", "GPP");
+				ums->lun.type == MMC_SD ? "SD " : "eMMC ", "GPP");
 			break;
 		case EMMC_BOOT0 + 1:
 			s_printf((char *)buf, "%s%s",
-				ums->lun.type == MMC_SD ? "SD卡 " : "eMMC ", "BOOT0");
+				ums->lun.type == MMC_SD ? "SD " : "eMMC ", "BOOT0");
 			break;
 		case EMMC_BOOT1 + 1:
 			s_printf((char *)buf, "%s%s",
-				ums->lun.type == MMC_SD ? "SD卡 " : "eMMC ", "BOOT1");
+				ums->lun.type == MMC_SD ? "SD " : "eMMC ", "BOOT1");
 			break;
 		}
 
@@ -1843,10 +1844,11 @@ int usb_device_gadget_ums(usb_ctxt_t *usbs)
 	ums.bulk_ctxt.bulk_out_buf = (u8 *)USB_EP_BULK_OUT_BUF_ADDR;
 
 	// Set LUN parameters.
-	ums.lun.ro        = usbs->ro;
-	ums.lun.type      = usbs->type;
-	ums.lun.partition = usbs->partition;
-	ums.lun.offset    = usbs->offset;
+	ums.lun.ro          = usbs->ro;
+	ums.lun.type        = usbs->type;
+	ums.lun.partition   = usbs->partition;
+	ums.lun.num_sectors = usbs->sectors;
+	ums.lun.offset      = usbs->offset;
 	ums.lun.removable = 1; // Always removable to force OSes to use prevent media removal.
 	ums.lun.unit_attention_data = SS_RESET_OCCURRED;
 
@@ -1899,10 +1901,14 @@ int usb_device_gadget_ums(usb_ctxt_t *usbs)
 
 	ums.set_text(ums.label, "#C7EA46 状态：#开启UMS");
 
-	if (usbs->sectors)
-		ums.lun.num_sectors = usbs->sectors;
-	else
-		ums.lun.num_sectors = ums.lun.storage->sec_cnt;
+	// If partition sectors are not set get them from hardware.
+	if (!ums.lun.num_sectors)
+	{
+		if (usbs->type == MMC_EMMC && (ums.lun.partition - 1)) // eMMC BOOT0/1.
+			ums.lun.num_sectors = emmc_storage.ext_csd.boot_mult << 8;
+		else
+			ums.lun.num_sectors = ums.lun.storage->sec_cnt;   // eMMC GPP or SD.
+	}
 
 	do
 	{
@@ -1932,7 +1938,9 @@ int usb_device_gadget_ums(usb_ctxt_t *usbs)
 
 		_handle_ep0_ctrl(&ums);
 
-		if (_parse_scsi_cmd(&ums, &ums.bulk_ctxt) || (ums.state > UMS_STATE_NORMAL))
+		_parse_scsi_cmd(&ums, &ums.bulk_ctxt);
+
+		if (ums.state > UMS_STATE_NORMAL)
 			continue;
 
 		_handle_ep0_ctrl(&ums);

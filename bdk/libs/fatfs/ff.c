@@ -600,7 +600,7 @@ static const BYTE DbcTbl[] = MKCVTBL(TBL_DC, FF_CODE_PAGE);
 
 void print_error()
 {
-	gfx_printf("\n\n\n%k[FatFS] Error: %k", 0xFFFFFF00, 0xFFFFFFFF);
+	gfx_printf("\n\n\n%k[FatFS] Fehler: %k", 0xFFFFFF00, 0xFFFFFFFF);
 }
 
 
@@ -3226,7 +3226,7 @@ static BYTE check_fs (	/* 0:FAT, 1:exFAT, 2:Valid BS but not FAT, 3:Not a BS, 4:
 	if (ld_word(fs->win + BS_55AA) != 0xAA55) return 3;	/* Check boot record signature (always here regardless of the sector size) */
 
 #if FF_FS_EXFAT
-	if (!mem_cmp(fs->win + BS_JmpBoot, "\xEB\x76\x90" "EXFAT   ", 11)) return 1;	/* Check if exFAT VBR */
+	if (!mem_cmp(fs->win + BS_JmpBoot, "\xEB\x76\x90" "exFAT   ", 11)) return 1;	/* Check if exFAT VBR */
 #endif
 	if (fs->win[BS_JmpBoot] == 0xE9 || fs->win[BS_JmpBoot] == 0xEB || fs->win[BS_JmpBoot] == 0xE8) {	/* Valid JumpBoot code? */
 		if (!mem_cmp(fs->win + BS_FilSysType, "FAT", 3)) return 0;		/* Is it an FAT VBR? */
@@ -6062,7 +6062,7 @@ FRESULT f_mkfs (
 		for (n = 0; n < 2; n++) {
 			/* Main record (+0) */
 			mem_set(buf, 0, ss);
-			mem_cpy(buf + BS_JmpBoot, "\xEB\x76\x90" "EXFAT   ", 11);	/* Boot jump code (x86), OEM name */
+			mem_cpy(buf + BS_JmpBoot, "\xEB\x76\x90" "exFAT   ", 11);	/* Boot jump code (x86), OEM name */
 			st_dword(buf + BPB_VolOfsEx, b_vol);					/* Volume offset in the physical drive [sector] */
 			st_dword(buf + BPB_TotSecEx, sz_vol);					/* Volume size [sector] */
 			st_dword(buf + BPB_FatOfsEx, b_fat - b_vol);			/* FAT offset [sector] */

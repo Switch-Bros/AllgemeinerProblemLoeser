@@ -258,7 +258,7 @@ static inline __attribute__((always_inline)) u8 *_read_pkg1(const pkg1_id_t **pk
     u32 pk1_offset = h_cfg.t210b01 ? sizeof(bl_hdr_t210b01_t) : 0; // Skip T210B01 OEM header.
     *pkg1_id = pkg1_identify(pkg1 + pk1_offset);
     if (!*pkg1_id) {
-        DPRINTF("Unbekannte pkg1 Version.\n Stelle sicher das du die neueste Lockpick_RCM hast.\n Wenn gerade eine neue Firmware erschienen ist,\n muss Lockpick_RCM aktualisiert werden.\n Schau auf Github nach einem neuen Release.");
+        DPRINTF("Unbekannte pkg1 Version.\n Stelle sicher das du die neueste Enigma_RCM hast.\n Wenn gerade eine neue Firmware erschienen ist,\n muss Enigma_RCM aktualisiert werden.\n Schau auf Github nach einem neuen Release.");
         //gfx_hexdump(0, pkg1, 0x20);
         char pkg1txt[16] = {0};
         memcpy(pkg1txt, pkg1 + pk1_offset +  0x10, 15);

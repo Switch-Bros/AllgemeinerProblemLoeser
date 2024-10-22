@@ -103,15 +103,15 @@ void printToken(lexarToken_t* token) {
 }
 
 char *ErrorText[] = {
-	"Bad operator",
-	"Double not",
-	"Syntax err",
-	"Invalid type",
-	"No var",
-	"No func",
-	"Inactive indent",
-	"Div by 0",
-	"Func fail"
+	"Ungueltiger Operator",
+	"Doppelte Negation",
+	"Syntaxfehler",
+	"Ungueltiger Typ",
+	"Keine Variable",
+	"Keine Funktion",
+	"Inaktive Einrueckung",
+	"Division durch 0",
+	"Funktionsfehler"
 };
 
 void printError(scriptResult_t res) {

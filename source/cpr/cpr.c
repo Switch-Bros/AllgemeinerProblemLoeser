@@ -246,7 +246,7 @@ void m_entry_fixArchiveBit(u32 type){
 
 		gfx_printf("Durchlaufe alle %s Dateien!\nDas kann einige Zeit dauern...\n\n", label);
 		_fix_attributes(path, &total, type, type);
-		gfx_printf("%kAnzahl der Behobenden Archiv bits: %d!%k", 0xFF96FF00, total, 0xFFCCCCCC);
+		gfx_printf("%kAnzahl reparierter Archiv bits: %d!%k", 0xFF96FF00, total, 0xFFCCCCCC);
 		
         gfx_printf("\n\n Fertig! Druecke eine Taste um fortzufahren");
         hidWait();
@@ -267,7 +267,7 @@ void m_entry_fixAIOUpdate(){
     char *o_strt_path = CpyStr("sd:/atmosphere/stratosphere.romfs");
 
     if (FileExists(aio_fs_path)) {
-        gfx_printf("Von AIO aktualisierte fusee-secondary erkannt -> ersetzte Original\n\n");
+        gfx_printf("Von AIO aktualisierte fusee-secondary erkannt -> ersetze Original\n\n");
         if (FileExists(o_fs_path)) {
             _DeleteFileSimple(o_fs_path);
         }
@@ -277,7 +277,7 @@ void m_entry_fixAIOUpdate(){
     free(o_fs_path);
 
     if (FileExists(aio_p_path)) {
-        gfx_printf("Von AIO aktualisierte payload erkannt -> ersetzte Original\n\n");
+        gfx_printf("Von AIO aktualisierte payload erkannt -> ersetze Original\n\n");
         if (FileExists(o_p_path)) {
             _DeleteFileSimple(o_p_path);
         }
@@ -303,7 +303,7 @@ void m_entry_fixAIOUpdate(){
 
 void m_entry_fixClingWrap(){
     gfx_clearscreen();
-    gfx_printf("\n\n-- Repariere SigPatches.\n\n");
+    gfx_printf("\n\n-- Repariere Bootloader, Kips und Patches.\n\n");
     char *bpath = CpyStr("sd:/_b0otloader");
     char *bopath = CpyStr("sd:/bootloader");
     char *kpath = CpyStr("sd:/atmosphere/_k1ps");
@@ -356,7 +356,7 @@ void m_entry_fixClingWrap(){
 void _deleteTheme(char* basePath, char* folderId){
     char *path = CombinePaths(basePath, folderId);
     if (FileExists(path)) {
-        gfx_printf("-- Gefundene Themes: %s\n", path);
+        gfx_printf("-- Theme gefunden: %s\n", path);
         FolderDelete(path);
     }
     free(path);
@@ -424,11 +424,11 @@ void m_entry_stillNoBootInfo(){
     gfx_printf("%kSteckt eine Spiel-Cardrige im Slot?\n", COLOR_WHITE);
     gfx_printf("Entferne sie und starte neu.\n\n");
 
-    gfx_printf("%kHast du vor kurzem atmosphere/switchbros-O-sphere aktualisiert?\n", COLOR_WHITE);
-    gfx_printf("Stecke die SD-Karte in deinen PC, loesche 'atmosphere', 'bootloader' & 'sept' Ordner, lade dein bevorzugtes CFW runter und pack die Dateien auf die SD-Karte.\nEinfacher ist es mit unserem SwitchBros. Paket!\nWir bieten dir gerne Hilfe auf unserem SwitchBros. Discord Server an. https://discord.gg/switchbros\n\n");
+    gfx_printf("%kHast du vor kurzem Atmosphere/SwitchBros. aktualisiert?\n", COLOR_WHITE);
+    gfx_printf("Stecke die SD-Karte in deinen PC, hol das neue Paket vom switchbros Discord-Server und starte die NOOB-O-MAT.bat.\nDanach kannst du den SwitchBros-Updater ausfuehren.\n\n");
 
     gfx_printf("%kHast du eine neue SD-Karte gekauft?\n", COLOR_WHITE);
-    gfx_printf("Vergewissere dich das es keine 'fake' Karte ist.\n\n");
+    gfx_printf("Vergewissere dich das es keine fake Karte ist.\n\n");
 
     gfx_printf("\n\n Fertig! Druecke eine Taste um Fortzufahren");
     hidWait();
@@ -436,7 +436,7 @@ void m_entry_stillNoBootInfo(){
 
 void m_entry_ViewCredits(){
     gfx_clearscreen();
-    gfx_printf("\nAllgemeinerProblemLoeser v%d.%d.%d.%d\nVon Team Neptune - (Uebersetzt von Switch Bros. und OLED Support hinzugefügt)\n\nBasierend auf TegraExplorer von SuchMemeManySkill,\nLockpick_RCM & Hekate, von shchmue & CTCaer\n\n\n", LP_VER_MJ, LP_VER_MN, LP_VER_BF);
+    gfx_printf("\nAllgemeinerProblemLoeser %d.%d.%d\nVon Team Neptune - (Uebersetzt von Switch Bros.)\n\nBasierend auf TegraExplorer von SuchMemeManySkill,\nLockpick_RCM & Hekate, von shchmue & CTCaer\n\n\n", LP_VER_MJ, LP_VER_MN, LP_VER_BF);
     hidWait();
 }
 

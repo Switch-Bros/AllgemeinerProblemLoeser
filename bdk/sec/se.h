@@ -47,7 +47,7 @@ int  se_aes_crypt_ctr(u32 ks, void *dst, u32 dst_size, const void *src, u32 src_
 int  se_calc_sha256(void *hash, u32 *msg_left, const void *src, u32 src_size, u64 total_size, u32 sha_cfg, bool is_oneshot);
 int  se_calc_sha256_oneshot(void *hash, const void *src, u32 src_size);
 int  se_calc_sha256_finalize(void *hash, u32 *msg_left);
-int  se_calc_hmac_sha256(void *dst, const void *src, u32 src_size, const void *key, u32 key_size);
+int se_calc_hmac_sha256(void *dst, const void *src, u32 src_size, const void *key, u32 key_size);
 int  se_gen_prng128(void *dst);
 int  se_aes_cmac_128(u32 ks, void *dst, const void *src, u32 src_size);
 

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2018 naehrwert
- * Copyright (c) 2018-2024 CTCaer
+ * Copyright (c) 2018-2025 CTCaer
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms and conditions of the GNU General Public License,
@@ -96,6 +96,10 @@ void reg_write_array(u32 *base, const reg_cfg_t *cfg, u32 num_cfg);
 void exec_cfg(u32 *base, const cfg_op_t *ops, u32 num_ops);
 u16  crc16_calc(const u8 *buf, u32 len);
 u32  crc32_calc(u32 crc, const u8 *buf, u32 len);
+
+int qsort_compare_int(const void *a, const void *b);
+int qsort_compare_char(const void *a, const void *b);
+int qsort_compare_char_case(const void *a, const void *b);
 
 void panic(u32 val);
 void power_set_state(power_state_t state);
